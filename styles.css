@@ -1,0 +1,49 @@
+body {
+    margin:0;
+    padding:0;
+}
+
+canvas {
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:-1;
+}
+
+div {
+    position:absolute;
+    z-index:0;
+    width: 50%;
+    margin: 10px 25%;
+}
+
+ul {
+    width: auto;
+    margin: 25%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li.left {
+    float: left;
+}
+
+li.right {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #111;
+}
