@@ -10,11 +10,11 @@ canvas {
     z-index:-1;
 }
 
-div {
+div.page {
     position:absolute;
     z-index:0;
     width: 50%;
-    margin: 10px 25%;
+    margin: 10px 25%;   
 }
 
 ul {

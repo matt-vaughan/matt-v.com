@@ -6,22 +6,45 @@
 	<script src="mattvbackground.js"></script>
 	<body>
 		<canvas id="canvas"></canvas>
-		<div>
+		<div class="page">
 			<nav>
 				<ul>
 					<li class="left"><a href="./index.html">Home</a></li>
-					<li class="left"><a href="Resume">Resume</a></li>
-					<li class="left"><a href="Projects">Projects</a></li>
-					<li class="left"><a href="Contact">Contact</a></li>
-					<li class="right"><a href="Login">Login</a></li>
+					<li class="left"><a href="./index.html?nav=resume">Resume</a></li>
+					<li class="left"><a href="./index.html?nav=projects">Projects</a></li>
+					<li class="left"><a href="./index.html?nav=contact">Contact</a></li>
+					<li class="right"><a href="./index.html?nav=login">Login</a></li>
 				</ul>
 			</nav>
-			<div>
-				<embed src="https://drive.google.com/viewerng/viewer?embedded=true&url=http://54.88.133.33/matt-v.com/resume.pdf" width="100%" height="875">
+			<div id="content">
 			</div>
 		</div>
 		<script>
 			new MattVBackground(document.getElementById("canvas"))
+
+			// GET query string
+			const urlParams = new URLSearchParams(window.location.search);
+			let content = document.getElementById("content")
+
+			// display content appropriate to nav selection
+			if (urlParams.has('nav')) {
+				switch(urlParams.get('nav')) {
+					case 'resume':
+						content.innerHTML = `<embed id="resume" src="https://drive.google.com/viewerng/viewer?embedded=true&url=http://54.88.133.33/matt-v.com/resume.pdf" width="100%" height="875" >`	
+						break;
+					case 'projects':
+						content.innerHTML = "Projects will go here"
+						break;
+					case 'contact':
+						content.innerHTML = "mvaughan404@gmail.com"
+						break;
+					case 'login':
+						content.innerHTML = "TODO: add login"	
+						break;
+				} 
+			} else {
+				content.innerHTML = ""
+			}
 		</script>
 	</body>
 </html>
