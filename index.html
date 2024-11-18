@@ -8,15 +8,25 @@
 		<canvas id="canvas"></canvas>
 		<div class="page">
 			<nav>
-				<ul>
+				<ul class="nav">
 					<li class="left"><a href="./index.html">Home</a></li>
 					<li class="left"><a href="./index.html?nav=resume">Resume</a></li>
-					<li class="left"><a href="./index.html?nav=projects">Projects</a></li>
-					<li class="left"><a href="./index.html?nav=contact">Contact</a></li>
-					<li class="right"><a href="./index.html?nav=login">Login</a></li>
+					<li class="left"><a href="./index.html?nav=cube">Cube Builder</a></li>
+					<li class="left"><a href="./index.html?nav=gravity">Gravity</a></li>
+					<li class="right"><a href="./index.html?nav=signin">Sign In</a></li>
 				</ul>
 			</nav>
 			<div id="content">
+				<div hidden id="home_content"><p></p></div>
+				<div hidden id="cube_content">
+					<iframe src="../cubeview/cubeview.html" width="100%;" height="450px;"></iframe>
+				</div>
+				<div hidden id="gravity_content">
+					<iframe src="../CanvasGravity/gravity.html" width="820px;" height="620px;"></iframe>
+				</div>
+				<div hidden id="contact_content">contact</div>
+				<div hidden id="signin_content">signin</div>
+				<div hidden id="register_content">register</div>
 			</div>
 		</div>
 		<script>
@@ -28,22 +38,23 @@
 
 			// display content appropriate to nav selection
 			if (urlParams.has('nav')) {
+				document.getElementById("home_content").hidden = true;
 				switch(urlParams.get('nav')) {
 					case 'resume':
 						content.innerHTML = `<embed id="resume" src="https://drive.google.com/viewerng/viewer?embedded=true&url=http://54.88.133.33/matt-v.com/resume.pdf" width="100%" height="875" >`	
 						break;
-					case 'projects':
-						content.innerHTML = "Projects will go here"
+					case 'cube':
+						content.innerHTML = document.getElementById("cube_content").innerHTML
 						break;
-					case 'contact':
-						content.innerHTML = "mvaughan404@gmail.com"
+					case 'gravity':
+						content.innerHTML = document.getElementById("gravity_content").innerHTML
 						break;
-					case 'login':
-						content.innerHTML = "TODO: add login"	
+					case 'signin':
+						content.innerHTML = document.getElementById("signin_content").innerHTML	
 						break;
 				} 
 			} else {
-				content.innerHTML = "<p>My brand new page... under construction. Resume is available.</p>"
+				content.innerHTML = document.getElementById("home_content").innerHTML
 			}
 		</script>
 	</body>
