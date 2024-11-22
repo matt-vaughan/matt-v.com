@@ -19,7 +19,10 @@
 			</nav>
 			<div id="content">
 				<div hidden id="home_content">
-					<pre id="pp" class="prettyprint">
+					<pre class="prettyprint">
+						<xmp id="pp">
+
+						</xmp>
 					</pre>
 				</div>
 				<div hidden id="cube_content">
@@ -58,7 +61,7 @@
 						break;
 				} 
 			} else {
-				content.innerHTML = document.getElementById("home_content").innerHTML
+				document.getElementById("home_content").hidden = false;
 				fetch('https://matt-vaughan.com/index.html')
 				.then(response => response.text()) // Adjust response type as needed
 				.then(data => {
