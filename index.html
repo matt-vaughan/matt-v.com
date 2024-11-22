@@ -60,6 +60,7 @@
 			} else {
 				content.innerHTML = document.getElementById("home_content").innerHTML
 				fetch('https://matt-vaughan.com/index.html')
+				.then(response => response.text()) // Adjust response type as needed
 				.then(data => {
 					// Do something with the file content
 					let pp = document.getElementById("pp")
