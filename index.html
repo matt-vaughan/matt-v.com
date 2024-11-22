@@ -19,7 +19,8 @@
 			</nav>
 			<div id="content">
 				<div hidden id="home_content">
-					<pre id="pp" class="prettyprint lang-html">
+					<?prettify lang=html linenums=true?>
+					<pre id="quine" class="prettyprint">
 					</pre>
 				</div>
 				<div hidden id="cube_content">
@@ -33,7 +34,7 @@
 				<div hidden id="register_content">register</div>
 			</div>
 		</div>
-		<script>
+		<script>//<![CDATA[
 			new MattVBackground(document.getElementById("canvas"))
 
 			// GET query string
@@ -58,15 +59,31 @@
 						break;
 				} 
 			} else {
+				(function () {
+				function htmlEscape(s) {
+					return s
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;');
+				}
+
+				// this page's own source code
+				var quineHtml = htmlEscape(
+					'<!DOCTYPE html>\n<html>\n' +
+					document.documentElement.innerHTML +
+					'\n<\/html>\n');
+
+				// Highlight the operative parts:
+				quineHtml = quineHtml.replace(
+					/&lt;script src[\s\S]*?&gt;&lt;\/script&gt;|&lt;!--\?[\s\S]*?--&gt;|&lt;pre\b[\s\S]*?&lt;\/pre&gt;/g,
+					'<span class="operative">$&<\/span>');
+
+				// insert into PRE
+				document.getElementById("quine").innerHTML = quineHtml;
+				})();
+				//]]>
+
 				document.getElementById("home_content").hidden = false;
-				fetch('https://matt-vaughan.com/index.html')
-				.then(response => response.text()) // Adjust response type as needed
-				.then(data => {
-					// Do something with the file content
-					let pp = document.getElementById("pp")
-					pp.innerText = data
-				})
-				.catch(error => console.error('Error:', error));
 			}
 		</script>
 	</body>
