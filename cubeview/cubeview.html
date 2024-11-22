@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+        <div id="container">
+            <div style="float:left;">
+                <canvas id="canvas">
+                </canvas>
+            </div>
+            <div style="width: 280px; float:right;">
+                <div>
+                    <div class="slidecontainer">
+                        <label for="zoom">zoom</label>
+                        <input type="range" min="-4" max="0" value="-3" step="0.1" class="slider" id="zoom">
+                    </div>
+                    <div class="slidecontainer">
+                        <label for="z_index">z-index</label>
+                        <input type="range" min="0" max="19" value="0" class="slider" id="z_index">
+                    </div>
+                    <div id="xyGrid">
+                    </div>
+                    <div>
+                        <label for="color">cube color</label>
+                        <input type="color" value="#ff0033" id="color">
+                    </div>
+                    <div class="slidecontainer">
+                        <label for="brightness">brightness</label>
+                        <input type="range" min="1" max="3" value="1.4" step="0.1" class="slider" id="brightness">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="cuberotate.js"></script>                             
+    </body>
+</html>

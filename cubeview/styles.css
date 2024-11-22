@@ -1,0 +1,27 @@
+label {
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+}​
+
+.grid_row {
+    background-color: cadetblue;
+}
+
+.grid_cell {
+    width: 10px;
+    height: 10px;
+    border-width: 1px;
+    font-size: xx-small;
+    margin: 1px;
+}
+
+.grid_cell_unoccupied {
+    background-color: darkslategrey;
+    border-color: black;
+}
+
+.grid_cell_occupied {
+    background-color: red;
+    border-color: black;
+}
