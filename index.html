@@ -19,7 +19,7 @@
 			</nav>
 			<div id="content">
 				<div hidden id="home_content">
-					<pre class="prettyprint">
+					<pre id="pp" class="prettyprint">
 					</pre>
 				</div>
 				<div hidden id="cube_content">
@@ -60,10 +60,10 @@
 			} else {
 				content.innerHTML = document.getElementById("home_content").innerHTML
 				fetch('https://matt-vaughan.com/index.html')
-				.then(response => response.text()) // Adjust response type as needed
 				.then(data => {
 					// Do something with the file content
-					content.innerHTML = `<pre class="prettyprint">${data}</pre>`
+					let pp = document.getElementById("pp")
+					pp.innerHTML = data
 				})
 				.catch(error => console.error('Error:', error));
 			}
