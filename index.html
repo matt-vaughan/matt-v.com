@@ -20,7 +20,7 @@
 			<div id="content">
 				<div hidden id="home_content">
 					<pre class="prettyprint">
-						<code class="lang-html"><xmp id="pp"></xmp></code>
+						<code id="pp" class="lang-html"></code>
 					</pre>
 				</div>
 				<div hidden id="cube_content">
@@ -65,7 +65,7 @@
 				.then(data => {
 					// Do something with the file content
 					let pp = document.getElementById("pp")
-					pp.innerHTML = data
+					pp.innerText = data
 				})
 				.catch(error => console.error('Error:', error));
 			}
