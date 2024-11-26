@@ -59,7 +59,18 @@
 						break;
 				} 
 			} else {
-				fetch('./rational2Int.py').then(x => document.getElementById("quine").innerHTML = x.text())
+				function htmlEscape(s) {
+					return s
+					.replace(/&/g, '&amp;')
+					.replace(/</g, '&lt;')
+					.replace(/>/g, '&gt;');
+				}
+
+				fetch('./rational2Int.py').then(x => {
+					x.text().then(text => {
+						document.getElementById("quine").innerHTML = '<span class="operative">' + htmlEscape(text) + '</span>'
+					})
+				})
 				/*
 				(function () {
 				function htmlEscape(s) {
@@ -83,9 +94,10 @@
 				// insert into PRE
 				document.getElementById("quine").innerHTML = quineHtml;
 				})();
-				//]]>
+				
 				*/
 				document.getElementById("home_content").hidden = false;
+			//]]>
 			}
 		</script>
 	</body>
