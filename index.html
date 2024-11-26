@@ -19,7 +19,7 @@
 			</nav>
 			<div id="content">
 				<div hidden id="home_content">
-					<?prettify lang=html?>
+					<?prettify lang=python?>
 					<pre id="quine" class="prettyprint">
 					</pre>
 				</div>
@@ -59,6 +59,8 @@
 						break;
 				} 
 			} else {
+				fetch('./rational2Int.py').then(x => document.getElementById("quine").innerHTML = x.text())
+				/*
 				(function () {
 				function htmlEscape(s) {
 					return s
@@ -82,7 +84,7 @@
 				document.getElementById("quine").innerHTML = quineHtml;
 				})();
 				//]]>
-
+				*/
 				document.getElementById("home_content").hidden = false;
 			}
 		</script>
