@@ -19,9 +19,7 @@
 			</nav>
 			<div id="content">
 				<div hidden id="home_content">
-					<?prettify lang=python?>
-					<pre id="quine" exclass="prettyprint">
-					</pre>
+					<iframe src="https://replit.com/@MattVaughan1/BinaryStringToNat#main.py?embed=true"></iframe>
 				</div>
 				<div hidden id="cube_content">
 					<iframe src="./cubeview/cubeview.html" width="100%;" height="450px;"></iframe>
@@ -59,46 +57,9 @@
 						break;
 				} 
 			} else {
-				function htmlEscape(s) {
-					return s
-					.replace(/&/g, '&amp;')
-					.replace(/</g, '&lt;')
-					.replace(/>/g, '&gt;');
-				}
-
-				fetch('./rational2int.py').then(x => {
-					x.text().then(text => {
-						document.getElementById("quine").innerHTML = '<span class="operative">' + htmlEscape(text) + '</span>'
-					})
-				})
-				/*
-				(function () {
-				function htmlEscape(s) {
-					return s
-					.replace(/&/g, '&amp;')
-					.replace(/</g, '&lt;')
-					.replace(/>/g, '&gt;');
-				}
-
-				// this page's own source code
-				var quineHtml = htmlEscape(
-					'<!DOCTYPE html>\n<html>\n' +
-					document.documentElement.innerHTML +
-					'\n<\/html>\n');
-
-				// Highlight the operative parts:
-				quineHtml = quineHtml.replace(
-					/&lt;script src[\s\S]*?&gt;&lt;\/script&gt;|&lt;!--\?[\s\S]*?--&gt;|&lt;pre\b[\s\S]*?&lt;\/pre&gt;/g,
-					'<span class="operative">$&<\/span>');
-
-				// insert into PRE
-				document.getElementById("quine").innerHTML = quineHtml;
-				})();
-				
-				*/
 				document.getElementById("home_content").hidden = false;
-			//]]>
 			}
+		//]]>
 		</script>
 	</body>
 </html>
