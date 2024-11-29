@@ -14,20 +14,31 @@
 					<li class="left"><a href="./index.html?nav=resume">Resume</a></li>
 					<li class="left"><a href="./index.html?nav=cube">Cube Builder</a></li>
 					<li class="left"><a href="./index.html?nav=gravity">Gravity</a></li>
-					<li class="right"><a href="./index.html?nav=signin">Sign In</a></li>
+					<li class="right"><a href="https://github.com/matt-vaughan">Github</a></li>
 				</ul>
 			</nav>
 			<div id="content">
 				<div hidden id="home_content">
+					<div>
+						<p>The background of my page is a canvas element that simulates positive and negative charges using Columb's law. 
+							Click 'github' in the navbar to take a look on github. Below is some python code for mapping finite length 
+							binary strings to natural numbers. The cube builer project is fun.
+						</p>
+					</div>
 					<iframe src="https://replit.com/@MattVaughan1/BinaryStringToNat?v=1&embed=true" width="100%" height="500px"></iframe>
 				</div>
 				<div hidden id="cube_content">
+					<div>
+						<p>Make 3-D cube art with canvas. Choose a color and click on one of the  </p>
+					</div>
 					<iframe src="./cubeview/cubeview.html" width="100%;" height="450px;"></iframe>
 				</div>
 				<div hidden id="gravity_content">
+					<div>
+						<p>Newtonian gravity sim in canvas</p>
+					</div>
 					<iframe src="./CanvasGravity/gravity.html" width="820px;" height="620px;"></iframe>
 				</div>
-				<div hidden id="contact_content">contact</div>
 				<div hidden id="signin_content">signin</div>
 				<div hidden id="register_content">register</div>
 			</div>
@@ -44,7 +55,7 @@
 				document.getElementById("home_content").hidden = true;
 				switch(urlParams.get('nav')) {
 					case 'resume':
-						content.innerHTML = `<embed id="resume" src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://matt-vaughan.com/resume.pdf" width="100%" height="875" >`	
+						content.innerHTML = `<embed id="resume" src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://matt-vaughan.com/resume.pdf" width="100%" height="500px" >`	
 						break;
 					case 'cube':
 						content.innerHTML = document.getElementById("cube_content").innerHTML
