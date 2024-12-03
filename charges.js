@@ -59,6 +59,7 @@ class Charges {
             charge.move( canvas, mouseInfo )
         })
     }
+    
     // n^2 accellerate function
     accellerateQuadratic() {
         for( let i=0; i < this.charges.length; ++i ) {
@@ -72,7 +73,6 @@ class Charges {
 
                 let ddx = (rx == 0 || Math.abs(rx) > 500) ? 0 : K * -(1.0 * this.charges[j].c * this.charges[i].c) / (signOf(rx)*rx*rx)
                 let ddy = (ry == 0 || Math.abs(ry) > 500) ? 0 : K * -(1.0 * this.charges[j].c * this.charges[i].c) / (signOf(ry)*ry*ry)
-                
                 
                 // do not permit above the maximum
                 if ( Math.abs(ddx) > MAX ) {

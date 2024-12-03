@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>    
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        // scribble/scratch canvas element context for finding the edge of frames
+        const scratch = document.createElement("canvas").getContext("2d")
+
+        // primary canvas and context
+        const cavnas = document.getElementById("canvas")
+        cavnas.height = 480
+        cavnas.width = 640
+        const ctx = cavnas.getContext("2d")
+        
+        let x = 0
+        let then = Date.now()
+        const draw = () => {
+            const now = Date.now()
+            if ( now - then < 100 ) {
+                return window.requestAnimationFrame(draw)
+            } else {
+                ctx.clearRect(0,0,cavnas.width,cavnas.height)
+
+                // get right x co-ordinate
+                // if it can't find it... goto end of the img
+                let x2 = nextFrameX(img, x)
+                console.log(x, " -> ", x2)
+                let w = x2 - x
+                if ( w == 0 ) {
+                    w = img.width - x
+                }
+
+                ctx.drawImage(img, x, 0, w, img.height, 0, 0, w, img.height)
+                
+                // if we're on the last frame of the sprite strip
+                // start again at 0, otherwise, set x = x2
+                if ( x2 == x ) {
+                    x = 0
+                } else {
+                    x = x2
+                }
+
+                then = now
+                window.requestAnimationFrame(draw)
+            }
+        }
+
+        function arraysEqual(arr1, arr2) {
+            if (arr1.length !== arr2.length) return false;
+            return arr1.every((val, index) => val === arr2[index]);
+        }
+
+        // finds the next matching vertical to the one
+        // at the given 'x' coordinate - finds the 
+        // boundary of the given frame
+        function nextFrameX(img, x) {
+            if ( img.width <= 1 ) throw Error("passed img of width <=1 ")
+
+            scratch.drawImage(img,0,0)
+            let leftVertical = scratch.getImageData(x, 0, 1, img.height).data
+
+            let passedLeadingEmpty = false
+            for ( let nextX = x+1; nextX < img.width; ++nextX ) {
+                let rightVertical = scratch.getImageData(nextX, 0, 1, img.height).data
+
+                let isEmptySpace = arraysEqual(leftVertical,rightVertical)
+                
+                console.log(leftVertical,rightVertical)
+                console.log("equal? ", isEmptySpace)
+                
+                // pass leading empty space and wait for empty space
+                if ( !passedLeadingEmpty && !isEmptySpace ) {
+                    passedLeadingEmpty = true
+                } else if ( passedLeadingEmpty && isEmptySpace ) {
+                    return nextX
+                }
+            }
+
+            // if we fail to find a matching vertical line we fail return x
+            return x
+        }
+
+        // load image
+        let img = new Image()
+        img.src = "./iKvtk.png"
+        img.onload = draw
+
+    </script>
+</body>
+</html>

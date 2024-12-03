@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="view.js"></script>
+        <script src="background.js"></script>
+    </head>
+    <body>
+        <div>
+            <canvas id="canvas"></canvas>
+        </div>
+        <div>
+            <input id="animation_name" type="text" value="animation1"></input>
+            <button id="add_frame">Add Frame</button>
+        </div>
+        <script>
+            new BackgroundCanvas( document.getElementById("canvas"))
+        </script>
+    </body>
+</html>
