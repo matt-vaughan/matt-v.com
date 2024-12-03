@@ -1,35 +1,17 @@
 """
-1-to-1 mapping of rational numbers (reals - irrational) to integers.
+1-to-1 mapping of *finite length* binary strings to natural numbers
 
-This mapping follows the following algorithm
-
-rationalToInt(r) = push_primes(r) * 2^d
-such that d is the minimum integer where where 10^d * r = z and z is an integer
-push_primes(r) takes the prime factors of r and increments them all to the next highest prime
-
-In principle, a unique mapping would exist for an irrational numbers
-but you could not determine the required information to produce integer mapping. 
-A problem equivalent to Cantor's diagonal.
-The variables have seemingly multiple and therefor NO possible values.
-Demonstrating the uncountable nature of the set of irrational numbers.
-
-AND
-
-1-to-1 mapping of binary strings (uncountable) to natural!!!
-This WORKS... I understand that this solution will work on a computer
-because the strings passed 'cant' be infinite. But it provides a consistent
-and unique 1-to-1 mapping
-
-But this will work for any binary strings of a arbitrary finite length
-Explanation and test cases below
+But this will work for any binary strings of an arbitrary finite length
+and the mapping remains consistent and 1-to-1 as n (the length of the strings) 
+increase
 
 Run the code :)
 """
 
-# Previous prime in sequence. example 3 returns 2
+# Previous prime in sequence. example 3 returns 2, 11 returns 7, etc
 def prev_prime(num):
-    if num < 3:
-        raise "To previous prime"
+    if num <= 2:
+        raise "no previous prime"
     n = int(num-1)
     while( num_factors(prime_factors(n)) != 1 ):
         n = n - 1
@@ -153,15 +135,11 @@ def intToRational( z ):
         return r 
 
 """
-The best part... this is an 'effective' 1-to-1 mapping of
+The best part... this is an 'effective' (psuedo) 1-to-1 mapping of
 binary strings to natural numbers for all binary strings of an arbitrary length...
-meaning it would capture any binary string with a unque mapping to a natural number
-given that the leading number of zeros is FINITE.
-
---it works for anything in real life--
 
 How is that the case that this works if binary strings are uncountable?
-BECAUSE our real world input is finite we can deal with two dimensions of counting
+BECAUSE our real world input is finite, we can deal with two dimensions of counting
 
 The reason we can't get irrational numbers mapped is their infinite length...
 We could only map their ever more precise approximations. 
