@@ -101,6 +101,8 @@ class UIParameters {
         document.getElementById("z_index").addEventListener("input", () => {
             this.drawCubeGrid() 
         })
+
+        this.mouseDown = false;
     }
     
     get_cube_color() {
@@ -137,11 +139,23 @@ class UIParameters {
         // add on click events
         for( let i=0; i < 20; i++ ) {
             for( let j=0; j < 20; j++ ) {
-                document.getElementById("xyGrid_"+i+"_"+j).addEventListener("click",
+                /*document.getElementById("xyGrid_"+i+"_"+j).addEventListener("click",
                     () => {
                         this.clickGridCell(i, j, this.get_z_index())
                     }
-                )
+                );*/
+                document.getElementById("xyGrid_"+i+"_"+j).addEventListener("mouseover", () => {
+                    if (this.mouseDown) {
+                        this.clickGridCell(i, j, this.get_z_index())
+                    }
+                });
+                document.getElementById("xyGrid_"+i+"_"+j).addEventListener("mousedown", () => {
+                    this.mouseDown = true;
+                    this.clickGridCell(i, j, this.get_z_index())
+                });
+                document.getElementById("xyGrid_"+i+"_"+j).addEventListener("mouseup", () => {
+                    this.mouseDown = false;
+                });
             }
         }
     }
