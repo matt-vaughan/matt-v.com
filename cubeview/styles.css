@@ -29,3 +29,8 @@ label {
     background-color: red;
     border-color: black;
 }
+
+.grid_cell_other_z {
+    background-color: rgb(97, 149, 149);
+    border-color: black;
+}

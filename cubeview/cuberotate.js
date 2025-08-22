@@ -129,7 +129,21 @@ class UIParameters {
         for( let i=19; i >= 0; i-- ) {
             html += `<tr class="grid_row">`
             for( let j=0; j < 20; j++ ) {
-                html += `<td class="grid_cell ${this.grid[j][i][z_index]}" id="xyGrid_${j}_${i}">&nbsp;</td>`
+                // variable for holding background-color style
+                var other_z_style = ""
+
+                // determine if a cube occupies another z_index
+                if ( this.grid[j][i][z_index] == "grid_cell_unoccupied" ) {
+                    for ( let k=0; k < 20; k++ ) {
+                        if ( this.grid[j][i][k] == "grid_cell_occupied" ) {
+                            other_z_style = " style=\"background-color: #619595;\" "
+                            break
+                        }
+                    }
+                }
+                
+
+                html += `<td ${other_z_style} class="grid_cell ${this.grid[j][i][z_index]}" id="xyGrid_${j}_${i}">&nbsp;</td>`
             }
             html += `</tr>`
         }
@@ -165,11 +179,13 @@ class UIParameters {
             this.grid[x][y][z] = "grid_cell_occupied"
             document.getElementById("xyGrid_"+x+"_"+y).classList.remove("grid_cell_unoccupied")
             document.getElementById("xyGrid_"+x+"_"+y).classList.add("grid_cell_occupied")
+            document.getElementById("xyGrid_"+x+"_"+y).style.backgroundColor = document.getElementById("color").value
             cubes.add(x, y, z, new Cube(x*20, y*20, z*20, 10, this.get_cube_color()))
         } else {
             this.grid[x][y][z] = "grid_cell_unoccupied"
             document.getElementById("xyGrid_"+x+"_"+y).classList.remove("grid_cell_occupied")
             document.getElementById("xyGrid_"+x+"_"+y).classList.add("grid_cell_unoccupied")
+            document.getElementById("xyGrid_"+x+"_"+y).style.backgroundColor = "#2f4f4f"
             cubes.remove(x,y,z)
         }
         
