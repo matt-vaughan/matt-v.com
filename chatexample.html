@@ -53,6 +53,7 @@
             send_button.addEventListener('click', (event) => {
                 const message = document.getElementById("message").value;
                 socket.send(message);
+                addMessage(message);
             });
         </script>
     </body>
