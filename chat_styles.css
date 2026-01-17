@@ -1,0 +1,180 @@
+div#console {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+}
+
+div#direct_message {
+    position: fixed;
+    bottom: 45lvh;
+    left: 30lvw;
+    z-index: 1;
+    background-color: rgba(47, 79, 70,0.5);
+    border-color: rgba(127, 255, 0, 0.5);
+    border-width: 6px;
+    border-radius: 10px;
+    border-style: groove;
+    padding: 5px;
+    align-content: center;
+}
+
+#direct_message input {
+    width: 600px;
+}
+
+#dm_exit {
+    position: absolute;
+    right: 5px;
+
+    padding: 0px;
+    font-size: 20px;
+    color: black;
+    border-color: grey;
+    border-width: 3px;
+    border-left-style: groove;
+    border-bottom-style: groove;
+
+    background-color: rgba(128,128,128,0.5);
+    z-index: 2;
+}
+
+div.messages {
+    float: left;
+    height: 92lvh;
+    width: 80%;
+    overflow: scroll;
+    overflow-x: hidden;
+    scroll-behavior: auto;
+}
+
+div.rooms {
+    float: right;
+    width: 20%;
+}
+
+.newroom_text {
+    width: 100%;
+}
+
+input {
+    font-size: 16px;
+    height: 35px;
+}
+
+input#username {
+    width: 100px;
+    text-align: center;
+    color: rgb(21, 21, 105);
+}
+
+input#message {
+    width: 70lvw;
+    margin: 0 0 0px 0lvw;
+}
+
+button#send {
+    height: 35px;
+    font-size: larger;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#rooms li:hover, #users li:hover {
+    background-color: rgb(45, 230, 45);
+    color: black;
+}
+
+#rooms li, #users li {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    color: rgb(69,69,29);
+
+    background-color: rgb(167, 186, 167);
+
+    border-top-style: groove;
+    border-top-width: 1px;
+    border-right-style: groove;
+    border-right-width: 2px;
+    border-color: rgb(81, 81, 81);
+
+    padding: 15px 10px;
+    margin: 0px;
+    
+    text-align: center;
+
+}
+
+/* big version of chat bubbles */
+#messages li:hover {
+    margin: 6px 3px 3px 3px;
+    border-radius: 20px 8px 0 10px;
+    border-color:rgba(40, 14, 116, 1) rgb(97, 33, 87) rgb(136, 42, 42) rgb(76, 11, 71);
+    border-width: 13px 2px 4px 7px;
+    border-style: outset outset groove inset;
+}
+
+/* small version of chat bubbles */
+#messages li {
+    margin: 3px;
+    padding: 6px 5px 0px 5px;
+    border-radius: 20px 8px 0 10px;
+    border-color: rgba(40, 14, 116, 0.7) rgb(64, 15, 56) rgb(122, 23, 23) rgb(25, 0, 23);
+    border-width: 7px 1px 2px 7px;
+    border-style: outset outset groove inset;
+    width: 95%;
+}
+
+#messages li span {
+    overflow-inline: auto;
+    margin: 0 10px;
+}
+
+#messages li span#userspan {
+    /*background-color: rgba(210, 105, 30, 0.7);
+    */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    color: rgb(40, 26, 197);
+    
+    border-top-left-radius: 10px;
+    border-top-style: groove;
+    border-left-style: groove;
+}
+
+#messages li span#messagespan:hover {
+    font-size: 34px;
+    text-shadow: teal;
+    color: rgb(40, 43, 117); 
+}
+
+#messages li span#messagespan {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    color: rgb(20, 23, 27);
+}
+
+#messages li div#timespan {
+    width: 20%;
+
+    background-color: rgb(210, 205, 230);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: lighter;
+    color: rgb(83, 83, 83);
+
+    padding: 5px 5px 0px 35px;
+    text-align: right;
+    margin: 0px -15px -5px auto;
+    position: relative;
+    overflow: visible;
+    
+    border-radius: 40px 15px 20px 10px;
+    border-style: groove;
+}
