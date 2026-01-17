@@ -1,39 +1,198 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="./styles.css">   
     </head>
     <body>
-        <div>
+        <div id="messages_div" class="messages">
             <ul id="messages">
 
+            </ul>         
+        </div>
+        <div class="rooms">
+            <h3>Rooms</h3>
+            <ul id="rooms">
+
             </ul>
-            <input id="username" type="text" placeholder="username">
-            <input id="message" type="text">
+            <br/>
+            <h3>Users in this room</h3>
+            <ul id="users">
+
+            </ul>
+        </div>
+        <div id="console">
+            <input id="username" type="text" placeholder="username" value="default">
+            <input id="message" type="text" placeholder="message">
             <button id="send">Send</button>
         </div>
-        <script>
+        <div id="direct_message" hidden>
+            <div id="dm_exit">
+                X
+            </div>
+            <h3 id="dm_header"></h3>
+            <p id="dm_received" hidden></p>
+            <input id="dm_message" type="text" placeholder="type message and press <enter>">
             
-            function addMessage(message, username="unknown") {
-                // 1. Select the ordered list (OL) element
-                const ul = document.getElementById("messages");
+        </div>
+        <script>
+            const socket = new WebSocket('wss://matt-vaughan.com/ws');
 
-                // 2. Create a new list item (LI) element
+            function updateThreads(threads) {
+                const ul = document.getElementById("rooms");
+                ul.innerHTML = "";
+
+                // add the rooms received from server
+                threads.forEach(thread_name => {
+                    const li = document.createElement("li");
+                    const textNode = document.createTextNode(thread_name);
+                    li.appendChild(textNode);
+                    
+                    li.id = thread_name;
+                    li.addEventListener('click', (event) => {
+                        const username = document.getElementById('username').value;
+                        
+                        const msg = JSON.stringify({change_room: event.target.id, username: username});
+                        
+                        console.log("sending" + msg);
+                        socket.send( msg );
+                        var msgs = document.getElementById("messages");
+                        msgs.innerHTML = "";
+                    });
+               
+                    ul.appendChild(li);    
+                });
+
+                // add a button to add a new room to the end of the list
                 const li = document.createElement("li");
+                
+                const input = document.createElement("input");
+                input.classList.add('newroom_text');
+                input.type = 'text';
+                input.placeholder = 'new room name <press enter>';
+                
+                input.addEventListener('keypress', (event) => {
+                    if (event.key !== "Enter") return;
+                    const username = document.getElementById('username').value;
+                    const msg = JSON.stringify({new_room: event.target.value, username: username});
+                    console.log("sending" + msg);
+                    socket.send( msg );
 
-                // 3. Create a text node for the new item's content
-                const textNode = document.createTextNode(username + ": " + message);
-                
-                // 4. Append the text node to the list item
-                li.appendChild(textNode);
-                
-                // 5. Append the completed list item to the ordered list
+                    var msgs = document.getElementById("messages");
+                    msgs.innerHTML = "";
+                });
+
+                li.appendChild(input);
                 ul.appendChild(li);
             }
 
-            const socket = new WebSocket('wss://matt-vaughan.com/ws');
+            function received_direct_message(message, user) {
+                const dm = document.getElementById("direct_message");
+                const dm_message = document.getElementById("dm_message");
+                const dm_header = document.getElementById("dm_header");
+                const dm_received = document.getElementById("dm_received");
+
+                dm_message.hidden = true;
+                dm_received.hidden = false;
+                dm_header.innerText = "Received direct message from " + user;
+                dm_received.innerText = message;
+                dm.hidden = false;
+
+                // exit button, so we can hide this screen
+                const dm_exit = document.getElementById("dm_exit");
+                dm_exit.addEventListener("click", (event) => {
+                    document.getElementById("direct_message").hidden = true;
+                });
+            }
+
+            function updateUsers(users) {
+                const ul = document.getElementById("users");
+                ul.innerHTML = "";
+
+                users.forEach(user => {
+                    const li = document.createElement("li");
+                    const textNode = document.createTextNode(user);
+
+                    // when you click the user: send a direct message
+                    li.addEventListener('click', (event) => {
+                        // clear event listeners for keypress first (by cloning element)
+                        const old_dm = document.getElementById("direct_message");
+                        const dm = old_dm.cloneNode(true); // 'true' also clones children
+                        old_dm.parentNode.replaceChild(dm, old_dm);
+                        
+
+                        // exit button, so we can hide this screen
+                        const dm_exit = document.getElementById("dm_exit");
+                        dm_exit.addEventListener("click", (event) => {
+                            document.getElementById("direct_message").hidden = true;
+                        });
+
+                        const dm_message = document.getElementById("dm_message");
+                        const dm_header = document.getElementById("dm_header");
+                        const dm_received = document.getElementById("dm_received");
+                        
+                        // unhide and put focus on the message send components and hide the message received components
+                        dm_header.innerText = "Send direct message to " + user;
+                        dm_message.hidden = false;
+                        dm_received.hidden = false;
+                        dm.hidden = false;
+                        dm_message.focus();
+                        
+                        // when you press enter in the direct message: send message and hide message box
+                        dm_message.addEventListener('keypress', (event) => {
+                            if (event.key != "Enter") return;
+                            const username = document.getElementById("username").value;
+                            const msg = JSON.stringify({direct_message: user, username: username, message: dm_message.value});
+                            console.log("sending" + msg);
+                            socket.send( msg );
+                            dm.hidden = true;
+                            dm_message.innerHTML.value = "";
+                        });
+                    });
+
+                    li.appendChild(textNode);;
+                    ul.appendChild(li);    
+                });
+            }
+
+            function addMessage(message, username, time=0) {
+                const ul = document.getElementById("messages");
+                const li = document.createElement("li");
+                const userspan = document.createElement("span");
+                const messagespan = document.createElement("span");
+                const timespan = document.createElement("div");
+
+                messagespan.id = "messagespan";
+                messagespan.innerHTML = message;
+                
+                userspan.id = "userspan";
+                userspan.innerHTML = username;
+                
+                var twoDigit = (intstr) => intstr < 10 ? "0" + new String(intstr) : new String(intstr);
+                var adv = (instr, f=(v)=>v) => f(new String((new Number(instr)) + 1));
+
+                var msgtime = new Date(new Number(time) * 1000);
+                var timeDateString = ""+twoDigit(msgtime.getHours())+":"+twoDigit(msgtime.getMinutes())+":"+twoDigit(msgtime.getSeconds())
+                +" "+adv(msgtime.getMonth(), twoDigit)+"/"+twoDigit(msgtime.getDate())+"/"+msgtime.getFullYear();
+                
+                timespan.id = "timespan";
+                timespan.innerText = time ? timeDateString : time;
+                
+
+                li.appendChild(userspan);
+                li.appendChild(messagespan);
+                li.appendChild(timespan);
+                
+                ul.appendChild(li);
+
+                // scroll to bottom
+                var element = document.getElementById('messages_div');
+                element.scrollTop = element.scrollHeight;
+            }
+
             socket.addEventListener('open', (event) => {
                 console.log('WebSocket connection established.');
-                socket.send('Hello Server!');
+                const msg = JSON.stringify({login: 'default', username: 'default'});
+                socket.send(msg);
             });
 
             socket.addEventListener('message', (event) => {
@@ -41,8 +200,14 @@
                 
                 try {
                     const messageData = JSON.parse(event.data);
-                    if (messageData && messageData.username && messageData.message) {
-                        addMessage(messageData.message, messageData.username);
+                    if (messageData && messageData.rooms) {
+                        updateThreads(messageData.rooms);
+                    } else if (messageData && messageData.direct_message && messageData.username && messageData.message) {
+                        received_direct_message(messageData.message, messageData.username);
+                    } else if (messageData && messageData.username && messageData.message) {
+                        addMessage(messageData.message, messageData.username, messageData.time);
+                    } else if (messageData && messageData.users) {
+                        updateUsers(messageData.users);
                     } else {
                         addMessage(event.data);
                     }
@@ -71,7 +236,7 @@
                 const escape = (str) => {
                     return str.replace(/(\\+)/g, '\\\\').replace(/(\\*)"/g, '\\"');
                 }
-                
+
                 socket.send("{ \"username\": \"" + escape(username.value) + "\" , \"message\": \"" + escape(message.value) + "\" }");
                 message.value = ""
             });
@@ -87,6 +252,7 @@
                     button.click();
                 }
             })
+
         </script>
     </body>
 </html>
