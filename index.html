@@ -15,7 +15,7 @@
 					<li class="left"><a href="./index.html?nav=chat">WebSockets Live Chat</a></li>
 					<li class="left"><a href="./index.html?nav=cube">Cube Builder</a></li>
 					<li class="left"><a href="./index.html?nav=gravity">Gravity</a></li>
-					<li class="left"><a href="https://matt-vaughan.com/space/">Asteroids Clone</a></li>
+					<li class="left"><a href="./index.html?nav=game">Asteroids Clone</a></li>
 					<li class="left"><a href="./charges.html">Charges</a></li>
 					<li class="right"><a href="https://github.com/matt-vaughan">Github</a></li>
 				</ul>
@@ -47,6 +47,12 @@
 						<p>Chat with instant push updates using websockets</p>
 					</div>
 					<iframe style="background-color: grey;" src="./chatexample.html" width="100%" height="100%"></iframe>
+				</div>
+				<div hidden id="game_content">
+					<div>
+						<p>An asteroids clone written in pygame</p>
+					</div>
+					<iframe src="./space/index.html" width="100%" height="100%"></iframe>
 				</div>
 				<div hidden id="cube_content">
 					<div>
@@ -86,6 +92,9 @@
 						break;
 					case 'gravity':
 						content.innerHTML = document.getElementById("gravity_content").innerHTML
+						break;
+					case 'game':
+						content.innerHTML = document.getElementById("game_content").innerHTML
 						break;
 					case 'signin':
 						content.innerHTML = document.getElementById("signin_content").innerHTML	
